@@ -1,5 +1,6 @@
 import { Players } from './players';
 import { TileState } from './tile-state.enum';
+import { EndGameState } from "./end-game-state";
 
 export abstract class GameState {
     public abstract playTurn(row: number, column: number): GameState;
@@ -8,11 +9,36 @@ export abstract class GameState {
         return this._currentPlayer;
     }
 
-    protected validateTurn(row: number, column: number): boolean {
+    protected validateMove(row: number, column: number): boolean {
         return this.board[row][column] === TileState.none;
+    }
+
+    protected validateGameOver(): boolean {
+        if (this.checkHorizontalWinConditionsOnRow(0, 0, 1)) {
+            return true;
+        }
+
+        // checkVerticalWinConditions(0, 1, 2);
+        // checkDiagonalWinCondition(0);
     }
 
     constructor(public board: TileState[][], private _currentPlayer: Players) {
 
+    }
+
+    private checkHorizontalWinConditionsOnRow(rowBeingChecked, recurseConditionalColumn, numberIdendticalTileStates) {
+        // let rowBeingChecked: number = 0
+
+        if (numberIdendticalTileStates === 3) {
+            console.log("win condition achieved");
+            return true;
+        } else if (this.board[rowBeingChecked][recurseConditionalColumn] === this.board[rowBeingChecked][recurseConditionalColumn + 1]) {
+            // why is 'return' needed here?
+            return this.checkHorizontalWinConditionsOnRow(rowBeingChecked, recurseConditionalColumn + 1, numberIdendticalTileStates + 1);
+        }
+        else {
+            console.log("no win condition achieved");
+            return false;
+        }
     }
 }
