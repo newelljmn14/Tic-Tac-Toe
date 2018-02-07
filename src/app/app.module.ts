@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { TileStateConverterPipe } from './tile-state-converter.pipe';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TileStateConverterPipe
   ],
   imports: [
     BrowserModule

@@ -1,6 +1,6 @@
 import { Players } from './players';
 import { TileState } from './tile-state.enum';
-import { EndGameState } from "./end-game-state";
+import { EndGameState } from './end-game-state';
 
 export abstract class GameState {
     public abstract playTurn(row: number, column: number): GameState;
@@ -14,7 +14,9 @@ export abstract class GameState {
     }
 
     protected validateGameOver(): boolean {
-        if (this.checkHorizontalWinConditionsOnRow(0, 0, 1)) {
+        if (this.checkHorizontalWinConditionsOnRow(0, 0, 1) ||
+            this.checkHorizontalWinConditionsOnRow(1, 0, 1) ||
+            this.checkHorizontalWinConditionsOnRow(2, 0, 1)) {
             return true;
         }
 
@@ -30,14 +32,28 @@ export abstract class GameState {
         // let rowBeingChecked: number = 0
 
         if (numberIdendticalTileStates === 3) {
-            console.log("win condition achieved");
+            console.log('win condition achieved');
             return true;
         } else if (this.board[rowBeingChecked][recurseConditionalColumn] === this.board[rowBeingChecked][recurseConditionalColumn + 1]) {
-            // why is 'return' needed here?
+            if (this.board[rowBeingChecked][recurseConditionalColumn] !== TileState.none) {
             return this.checkHorizontalWinConditionsOnRow(rowBeingChecked, recurseConditionalColumn + 1, numberIdendticalTileStates + 1);
+            }
+        } else {
+            console.log('no win condition achieved');
+            return false;
         }
-        else {
-            console.log("no win condition achieved");
+    }
+
+    private checkVerticalWinConditionsOnColumn(columnBeingChecked, recurseConditionalRow, numberIdendticalTileStates) {
+        if (numberIdendticalTileStates === 3) {
+            console.log('win condition achieved');
+            return true;
+        } else if (this.board[recurseConditionalRow][columnBeingChecked] === this.board[recurseConditionalRow + 1][columnBeingChecked]) {
+            if (this.board[recurseConditionalRow][columnBeingChecked] !== TileState.none) {
+            return this.checkVerticalWinConditionsOnColumn(recurseConditionalRow + 1, columnBeingChecked, numberIdendticalTileStates + 1);
+            }
+        } else {
+            console.log('no win condition achieved');
             return false;
         }
     }

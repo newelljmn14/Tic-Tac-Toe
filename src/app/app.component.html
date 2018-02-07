@@ -1,13 +1,14 @@
 <h1>Tic Tac Toe</h1>
 
-<table>
-  <tr>
-    <td (click)="playTurn(0, 0)">{{displayBoard[0][0]}}</td> <td (click)="playTurn(0, 1)">{{displayBoard[0][1]}}</td> <td (click)="playTurn(0, 2)">{{displayBoard[0][2]}}</td>
-  </tr>
-  <tr>
-    <td (click)="playTurn(1, 0)">{{displayBoard[1][0]}}</td> <td (click)="playTurn(1, 1)">{{displayBoard[1][1]}}</td> <td (click)="playTurn(1, 2)">{{displayBoard[1][2]}}</td>      
-  </tr>
-  <tr>
-    <td (click)="playTurn(2, 0)">{{displayBoard[2][0]}}</td> <td (click)="playTurn(2, 1)">{{displayBoard[2][1]}}</td> <td (click)="playTurn(2, 2)">{{displayBoard[2][2]}}</td>
-  </tr>
-</table>
+<div style="display: table;">
+  <div style="display: table-row;">
+    <div style="display: table-cell; border-bottom: solid 1px black" (click)="playTurn(0, 0)">{{displayBoard[0][0] | tileStateConverter}}</div> <div style="display: table-cell" (click)="playTurn(0, 1)" style="border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black">{{displayBoard[0][1] | tileStateConverter}}</div> <div style="display: table-cell; border-bottom: solid 1px black" (click)="playTurn(0, 2)">{{displayBoard[0][2] | tileStateConverter}}</div>
+  </div>
+  <div style="display: table-row;">
+    <div style="display: table-cell; border-bottom: solid 1px black" (click)="playTurn(1, 0)">{{displayBoard[1][0] | tileStateConverter}}</div> <div style="display: table-cell" (click)="playTurn(1, 1)" style="border-left: solid 1px black; border-right: solid 1px black; border-bottom: solid 1px black">{{displayBoard[1][1] | tileStateConverter}}</div> <div style="display: table-cell; border-bottom: solid 1px black" (click)="playTurn(1, 2)">{{displayBoard[1][2] | tileStateConverter}}</div>      
+  </div>
+  <div style="display: table-row;">
+    <div style="display: table-cell" (click)="playTurn(2, 0)">{{displayBoard[2][0] | tileStateConverter}}</div> <div style="display: table-cell" (click)="playTurn(2, 1)" style="border-left: solid 1px black; border-right: solid 1px black">{{displayBoard[2][1] | tileStateConverter}}</div> <div style="display: table-cell" (click)="playTurn(2, 2)">{{displayBoard[2][2] | tileStateConverter}}</div>
+  </div>
+</div>
+
